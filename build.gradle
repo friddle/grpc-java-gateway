@@ -1,0 +1,75 @@
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'eclipse'
+    apply plugin: 'idea'
+
+    version = '1.0'
+
+    // JVM 版本号要求
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
+    // java编译的时候缺省状态下会因为中文字符而失败
+    [compileJava,compileTestJava,javadoc]*.options*.encoding = 'UTF-8'
+
+
+
+    ext {
+
+        //grpc 相关
+        protobufVersion = '3.0.2'
+        grpcVersion = '1.9.0'
+        grpcOkHttpVersion='1.1.2'
+        grpcNettyVersion='4.1.17.Final'
+        nettySslVersion= '1.1.33.Fork26'
+    }
+
+    dependencies{
+        compile "io.grpc:grpc-all:${property('grpcVersion')}"
+        compile 'io.netty:netty-tcnative-boringssl-static:2.0.7.Final'
+        compile 'org.mortbay.jetty.alpn:alpn-boot:8.1.12.v20180117'
+    }
+
+    repositories {
+        //jcenter()
+        maven { url "http://maven.aliyun.com/mvn/repository/" }
+        mavenLocal()
+        mavenCentral()
+    }
+
+    configurations {
+        // 所有需要忽略的包定义在此
+        //all*.exclude group: 'commons-httpclient'
+
+    }
+
+    test.onlyIf { Boolean.getBoolean('enable.test') }
+
+
+    buildscript{
+        repositories {
+            maven { url "http://maven.aliyun.com/mvn/repository/" }
+            mavenLocal()
+            mavenCentral()
+        }
+    }
+
+
+
+    // 显示当前项目下所有用于 compile 的 jar.
+    task listJars(description: 'Display all compile jars.') << {
+        configurations.compile.each { File file -> println file.name }
+    }
+
+    // 配置build输出目录
+    tasks.withType(Jar) {
+        destinationDir = file("$rootDir/${project.getName()}/target")
+    }
+
+    // 配置clean删除的目录
+    tasks.withType(Delete){
+        delete 'build', 'target'
+    }
+
+}
+

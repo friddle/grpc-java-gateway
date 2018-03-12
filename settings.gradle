@@ -1,0 +1,4 @@
+rootProject.name = 'grpc-gateway'
+include 'grpc-gateway-demo'
+include 'grpc-gateway-stupid'
+
