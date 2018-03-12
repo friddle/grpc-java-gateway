@@ -1,7 +1,7 @@
 Java版本的Grpc的GateWay.非常傻逼版本
 -------
 
-吐槽点
+提前说
 ---
 1. 没做完.
 2. 做的方式很傻逼.
@@ -10,8 +10,7 @@ Java版本的Grpc的GateWay.非常傻逼版本
 为啥做不完
 ---
 1. Java项目确实工作量太大。不适合我这种业余没时间选手
-2. 泛型用的太厉害。想动手不知道怎么动。
-3. 暂时只有一个demo。什么有时间在弄
+2. 暂时只有一个demo。什么有时间在弄
 
 
 用法
@@ -27,6 +26,8 @@ Java版本的Grpc的GateWay.非常傻逼版本
         server.awaitTermination();
 ```
 
+
+
 IChannelFactory
 ```
     ManagedChannel GetChannel(MethodDescriptor method, Metadata headers);
@@ -37,6 +38,7 @@ IChannelFactory
 
 
 真正吐槽的地方
+---
 
 1. 因为Grpc的Netty代码和什么代码都是final。private。default。所以没办法只能复制代码
 2. 还有压缩什么。进程什么。压测什么都没做。只保证能用。果断时间完善
