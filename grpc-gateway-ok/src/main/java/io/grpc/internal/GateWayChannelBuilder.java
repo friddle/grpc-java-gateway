@@ -1,31 +1,31 @@
 package io.grpc.internal;
 
-import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkNotNull;
-import static com.google.common.base.Preconditions.checkState;
-import static io.grpc.internal.GrpcUtil.DEFAULT_KEEPALIVE_TIMEOUT_NANOS;
-import static io.grpc.internal.GrpcUtil.DEFAULT_KEEPALIVE_TIME_NANOS;
-import static io.grpc.internal.GrpcUtil.KEEPALIVE_TIME_NANOS_DISABLED;
-
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Preconditions;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
-import io.grpc.*;
+import io.grpc.Attributes;
+import io.grpc.ExperimentalApi;
+import io.grpc.Internal;
+import io.grpc.NameResolver;
 import io.grpc.netty.*;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.ssl.SslContext;
+
+import javax.annotation.CheckReturnValue;
+import javax.annotation.Nullable;
+import javax.net.ssl.SSLException;
 import java.net.InetSocketAddress;
 import java.net.SocketAddress;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-import javax.annotation.CheckReturnValue;
-import javax.annotation.Nullable;
-import javax.net.ssl.SSLException;
+
+import static com.google.common.base.Preconditions.*;
+import static io.grpc.internal.GrpcUtil.*;
 
 /**
  * A builder to help simplify construction of channels using the Netty transport.

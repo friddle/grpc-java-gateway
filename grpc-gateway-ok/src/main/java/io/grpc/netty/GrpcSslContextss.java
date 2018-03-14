@@ -18,7 +18,6 @@ package io.grpc.netty;
 
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import io.grpc.ExperimentalApi;
-import io.grpc.netty.JettyTlsUtil;
 import io.netty.handler.codec.http2.Http2SecurityUtil;
 import io.netty.handler.ssl.*;
 import io.netty.handler.ssl.ApplicationProtocolConfig.Protocol;

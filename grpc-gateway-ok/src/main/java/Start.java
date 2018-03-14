@@ -1,6 +1,5 @@
-import com.friddle.grpc.GreeterGrpc;
-import io.grpc.internal.GateWayServerImpl;
 import io.grpc.internal.GateWayServerBuilder;
+import io.grpc.internal.GateWayServerImpl;
 import io.grpc.netty.DefaultChannelFactory;
 
 import java.io.IOException;

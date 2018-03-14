@@ -3,10 +3,6 @@ package io.grpc.netty;
 /**
  * Created by talkweb on 2018/3/13.
  */
-import static io.grpc.internal.GrpcUtil.CONTENT_TYPE_KEY;
-import static io.grpc.internal.TransportFrameUtil.toHttp2Headers;
-import static io.grpc.internal.TransportFrameUtil.toRawSerializedHeaders;
-import static io.netty.util.CharsetUtil.UTF_8;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Preconditions;
@@ -22,11 +18,17 @@ import io.netty.handler.codec.http2.Http2Exception;
 import io.netty.handler.codec.http2.Http2Headers;
 import io.netty.util.AsciiString;
 import io.netty.util.concurrent.DefaultThreadFactory;
+
 import java.io.IOException;
 import java.nio.channels.ClosedChannelException;
 import java.util.Map;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
+
+import static io.grpc.internal.GrpcUtil.CONTENT_TYPE_KEY;
+import static io.grpc.internal.TransportFrameUtil.toHttp2Headers;
+import static io.grpc.internal.TransportFrameUtil.toRawSerializedHeaders;
+import static io.netty.util.CharsetUtil.UTF_8;
 
 /**
  * Common utility methods.

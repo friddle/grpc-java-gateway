@@ -1,33 +1,19 @@
 package io.grpc.internal;
 
-import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkNotNull;
-import static com.google.common.base.Preconditions.checkState;
-import static com.google.common.util.concurrent.MoreExecutors.directExecutor;
-import static io.grpc.ConnectivityState.IDLE;
-import static io.grpc.ConnectivityState.SHUTDOWN;
-import static io.grpc.ConnectivityState.TRANSIENT_FAILURE;
-import static io.grpc.internal.ClientCallImpl.prepareHeaders;
-import static io.grpc.internal.GrpcUtil.TIMEOUT_KEY;
-import static io.opencensus.trace.Status.DEADLINE_EXCEEDED;
-import static java.lang.Math.max;
-
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Stopwatch;
 import com.google.common.base.Supplier;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.SettableFuture;
-import com.google.protobuf.GeneratedMessage;
 import io.grpc.*;
 import io.grpc.LoadBalancer.PickResult;
 import io.grpc.LoadBalancer.PickSubchannelArgs;
 import io.grpc.LoadBalancer.SubchannelPicker;
-import sun.plugin2.message.transport.Transport;
-import sun.plugin2.message.transport.TransportFactory;
 
-import java.io.IOException;
+import javax.annotation.Nullable;
+import javax.annotation.concurrent.GuardedBy;
+import javax.annotation.concurrent.ThreadSafe;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.lang.ref.Reference;
 import java.lang.ref.ReferenceQueue;
 import java.lang.ref.SoftReference;
@@ -37,20 +23,18 @@ import java.net.URISyntaxException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.Executor;
-import java.util.concurrent.ScheduledFuture;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.GuardedBy;
-import javax.annotation.concurrent.ThreadSafe;
+
+import static com.google.common.base.Preconditions.*;
+import static io.grpc.ConnectivityState.*;
+import static io.grpc.internal.ClientCallImpl.prepareHeaders;
+import static io.grpc.internal.GrpcUtil.TIMEOUT_KEY;
+import static java.lang.Math.max;
 
 /** A communication channel for making outgoing RPCs. */
 @ThreadSafe

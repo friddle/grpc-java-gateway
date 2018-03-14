@@ -3,7 +3,6 @@ package io.grpc.netty;
 import com.friddle.IChannelFactory;
 import io.grpc.ManagedChannel;
 import io.grpc.Metadata;
-import io.grpc.MethodDescriptor;
 import io.grpc.Status;
 import io.grpc.internal.GateWayChannelBuilder;
 import io.grpc.internal.GateWayChannelImpl;

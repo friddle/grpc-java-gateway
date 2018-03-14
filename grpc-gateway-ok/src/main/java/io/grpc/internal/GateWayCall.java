@@ -1,16 +1,13 @@
 package io.grpc.internal;
 
 import com.friddle.IChannelFactory;
-import io.grpc.*;
-import io.grpc.internal.*;
-import io.grpc.stub.ClientCalls;
-import io.netty.channel.ChannelFactory;
-import sun.jvm.hotspot.utilities.MessageQueue;
+import io.grpc.CallOptions;
+import io.grpc.Context;
+import io.grpc.Metadata;
+import io.grpc.Status;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.List;
-import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 /**
