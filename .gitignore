@@ -4,3 +4,5 @@ grpc-gateway-test/
 grpc-gateway-stupid/
 grpc-gateway-try/
 grpc-gateway-babystory/
+.DS_Store
+*/target/*
