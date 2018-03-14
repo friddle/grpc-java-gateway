@@ -1,4 +1,6 @@
-.gradle
-.idea
-grpc-gateway-babystory-test
-grpc-gateway-babystory-stupid
+.gradle/
+.idea/
+grpc-gateway-test/
+grpc-gateway-stupid/
+grpc-gateway-try/
+grpc-gateway-babystory/

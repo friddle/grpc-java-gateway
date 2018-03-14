@@ -1,10 +1,9 @@
-Java版本的Grpc的GateWay.非常差的版本
+Java版本的Grpc的GateWay
 -------
 
 提前说
 ---
-1. 没做完.
-2. 做的方式很差
+1. 没做测试
 
 
 为啥做不完
@@ -19,19 +18,25 @@ Java版本的Grpc的GateWay.非常差的版本
         SocketAddress address=new InetSocketAddress("localhost",50050);
         GateWayServerImpl server= GateWayServerBuilder.
                 forAddress(address).
-                addService(new GreeterGrpc.GreeterImplBase(){}).
                 setChannelFactory(DefaultChannelFactory.Default("localhost",50051)).
                 build();
         server.start();
         server.awaitTermination();
 ```
 
+GateWayChannelBuilder
+```
+GateWayChannelBuilder.forAddress(address,port).usePlaintext(true).build()
+```
 
 
 IChannelFactory
 ```
-    ManagedChannel GetChannel(MethodDescriptor method, Metadata headers);
+    GateWayChannel GetChannel(String method, Metadata headers);
 ```
+
+
+
 
 自己拿着请求头和方法名字去转发到不同的地址去。
 

@@ -1,4 +1,6 @@
 rootProject.name = 'grpc-gateway'
 include 'grpc-gateway-demo'
+include 'grpc-gateway-ok'
 include 'grpc-gateway-stupid'
+include 'grpc-gateway-babystory'
 
